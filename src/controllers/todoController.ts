@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import Todo from "../models/Todo";
 
-export const createTodo = async (req: Request, res: Response) => {
+export const createTodo = async (req: Request, res: Response) : Promise<any> => {
   try {
     const { title } = req.body;
     const newTodo = new Todo({ title });
@@ -12,7 +12,7 @@ export const createTodo = async (req: Request, res: Response) => {
   }
 };
 
-export const getTodos = async (_req: Request, res: Response) => {
+export const getTodos = async (_req: Request, res: Response) : Promise<any> =>{
   try {
     const todos = await Todo.find();
     res.json(todos);
@@ -21,7 +21,7 @@ export const getTodos = async (_req: Request, res: Response) => {
   }
 };
 
-export const updateTodo = async (req: Request, res: Response) => {
+export const updateTodo = async (req: Request, res: Response) : Promise<any> => {
   try {
     const { id } = req.params;
     const updatedTodo = await Todo.findByIdAndUpdate(id, req.body, { new: true });
@@ -31,7 +31,7 @@ export const updateTodo = async (req: Request, res: Response) => {
   }
 };
 
-export const deleteTodo = async (req: Request, res: Response) => {
+export const deleteTodo = async (req: Request, res: Response) : Promise<any> => {
   try {
     const { id } = req.params;
     await Todo.findByIdAndDelete(id);

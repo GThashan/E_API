@@ -4,13 +4,14 @@ import jwt from "jsonwebtoken";
 import User from "../models/User";
 
 
-const SECRET_KEY = process.env.JWT_SECRET || "supersecretkey";
+const SECRET_KEY = process.env.JWT_SECRET as string;
 
 
 const validateEmail = (email: string) => {
   const regex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
   return regex.test(email);
 };
+
 
 
 export const register = async (req: Request, res: Response): Promise<any>  => {
@@ -53,5 +54,18 @@ export const login = async (req: Request, res: Response) : Promise<any> =>{
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error", error });
+  }
+};
+
+export const getUserTodos = async (userId: string) : Promise<any> =>{
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return { success: false, message: "User not found" };
+    }
+    return { success: true, todos: user.todos };
+  } catch (error) {
+    console.error("Error fetching todos:", error);
+    return { success: false, message: "Internal server error" };
   }
 };
