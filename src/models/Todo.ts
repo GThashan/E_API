@@ -1,7 +1,7 @@
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Document, Schema, Types } from "mongoose";
 
 interface ITodo extends Document {
-  user: mongoose.Schema.Types.ObjectId;
+  user: Types.ObjectId;
   title: string;
   completed: boolean;
 }

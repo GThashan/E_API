@@ -57,15 +57,3 @@ export const login = async (req: Request, res: Response) : Promise<any> =>{
   }
 };
 
-export const getUserTodos = async (userId: string) : Promise<any> =>{
-  try {
-    const user = await User.findById(userId);
-    if (!user) {
-      return { success: false, message: "User not found" };
-    }
-    return { success: true, todos: user.todos };
-  } catch (error) {
-    console.error("Error fetching todos:", error);
-    return { success: false, message: "Internal server error" };
-  }
-};
