@@ -50,7 +50,7 @@ export const login = async (req: Request, res: Response) : Promise<any> =>{
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
     const token = jwt.sign({ userId: user._id }, SECRET_KEY, { expiresIn: "1h" });
-    res.json({ message: "Login successful", token });
+    res.json({ message: "Login successful", token ,  userId: user._id });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error", error });

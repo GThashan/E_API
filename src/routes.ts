@@ -11,8 +11,8 @@ router.post("/login", login);
 
 router.post("/todos/:userId", createTodo);
 router.get("/todos", getTodos);
-router.put("/todos/:userId/:todoId", updateTodo);
-router.delete("/todos/:userId/:todoId", deleteTodo);
+router.put("/todos/:todoId", updateTodo);
+router.delete("/todos/:todoId", deleteTodo);
 router.get('/getUserTodos/:userId',getUserTodos)
 
 export default router;

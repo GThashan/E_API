@@ -3,14 +3,12 @@ import Todo from "../models/Todo";
 
 export const createTodo = async (req: Request, res: Response): Promise<any> => {
   const { userId } = req.params; 
-
   try {
     const { title } = req.body;
 
     if (!title) {
       return res.status(400).json({ message: "Title is required" });
     }
-
     const newTodo = new Todo({
       title,
       user: userId, 
@@ -23,6 +21,7 @@ export const createTodo = async (req: Request, res: Response): Promise<any> => {
   }
 };
 
+
 export const getTodos = async (_req: Request, res: Response) : Promise<any> =>{
   try {
     const todos = await Todo.find();
@@ -34,12 +33,11 @@ export const getTodos = async (_req: Request, res: Response) : Promise<any> =>{
 
 
 export const updateTodo = async (req: Request, res: Response): Promise<void> => {
-  const { userId, todoId } = req.params;
+  const { todoId } = req.params;
   const { completed } = req.body;
-
   try {
-    const todo = await Todo.findOneAndUpdate(
-      { _id: todoId, user: userId },
+    const todo = await Todo.findOneAndUpdate({ _id: todoId},
+
       { completed },
       { new: true }
     );
@@ -48,29 +46,28 @@ export const updateTodo = async (req: Request, res: Response): Promise<void> => 
       res.status(404).json({ message: "Todo not found" });
       return;
     }
-
     res.status(200).json(todo);
   } catch (error) {
     res.status(500).json({ message: "Error updating todo", error });
   }
 };
 
+
 export const deleteTodo = async (req: Request, res: Response): Promise<void> => {
-  const { userId, todoId } = req.params;
+  const { todoId } = req.params;
 
   try {
-    const todo = await Todo.findOneAndDelete({ _id: todoId, user: userId });
-
+    const todo = await Todo.findOneAndDelete({ _id: todoId});
     if (!todo) {
       res.status(404).json({ message: "Todo not found" });
       return;
     }
-
     res.status(200).json({ message: "Todo deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: "Error deleting todo", error });
   }
 };
+
 export const getUserTodos = async (req: Request, res: Response): Promise<void> => {
   const { userId } = req.params;
 
