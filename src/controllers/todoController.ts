@@ -59,10 +59,10 @@ export const deleteTodo = async (req: Request, res: Response): Promise<void> => 
   try {
     const todo = await Todo.findOneAndDelete({ _id: todoId});
     if (!todo) {
-      res.status(404).json({ message: "Todo not found" });
+      res.status(400).json({ message: "Todo not found" });
       return;
     }
-    res.status(200).json({ message: "Todo deleted successfully" });
+    res.status(200).json({status:true, message: "Todo deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: "Error deleting todo", error });
   }
