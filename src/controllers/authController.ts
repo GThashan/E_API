@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/User";
 // commment by me
-
+// commment by randika
 const SECRET_KEY = process.env.JWT_SECRET as string;
 
 
